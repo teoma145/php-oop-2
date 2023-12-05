@@ -12,12 +12,20 @@
             <div class="d-flex justify-content-between align-items-flex-start">
                 <?= $custom ?>
                 <div>
-                 
+                <?php
+                if (isset($genres)) {
+                        echo $genres;
+                    }
+                ?>
                 </div>
                 <div>
-                
+                <?php
+                if (isset($original_language)) {
+                        echo $original_language;
+                    }
+                ?>
                 </div>
-                <div><?= $template ?></div>
+                <div><?= $template?></div>
                 
             </div>
             <div>quantita:<?= $quantity?>prezzo:<?= $price?>
