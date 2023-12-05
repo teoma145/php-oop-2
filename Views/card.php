@@ -12,10 +12,10 @@
             <div class="d-flex justify-content-between align-items-flex-start">
                 <?= $custom ?>
                 <div>
-                <?= $genres ?>
+                 
                 </div>
                 <div>
-                <?= $original_language?>
+                
                 </div>
                 <div><?= $template ?></div>
                 
