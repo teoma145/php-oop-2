@@ -29,9 +29,12 @@
                 
             </div>
             <div>quantita:<?= $quantity?>prezzo:<?= $price?>
-            <?php if($sconto>0){?>  
+            <?php if($sconto>5){?>  
                 prezzo scontato
             <?php }    ?>    
+            </div>
+            <div>
+            
             </div>
 
         </div>

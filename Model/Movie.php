@@ -4,9 +4,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include __DIR__.'/genre.php';
 include __DIR__.'/product.php';
-include __DIR__.'/../Traits/DrawCard.php';
 class Movie extends product{
-    use DrawCard;
     private int $id;
     private string $title;
     private string $overview;
@@ -29,7 +27,7 @@ class Movie extends product{
         $vote=ceil($this->vote_average/2);
         $template = '<p>';
         for($n = 1 ;$n <= 5; $n++){
-            $template .= $n <= $vote ? '<i class="fa-solid fa-star"></i>' : '<i class="fa regular fa-star"></i>';
+            $template .= $n <= $vote ? '<i class="fa-solid fa-star"></i>' : '<i class="fa-regular fa-star"></i>';
 
         }
         $template .= "</p>";
@@ -49,21 +47,27 @@ class Movie extends product{
         return $templategen;
         
     }
-    public function formatCard(){
-        $cardItem=[
-            'sconto' => $this->setDis($this->title),
-            'image' => $this->poster_path,
-            'title' => $this->title,
-            'content' => $this->overview,
-            'custom' => $this->vote_average,
-            'genres' => $this->GetGenr(),
-            'original_language' => $this->original_language,
-            'template' => $this->getVote(),
-            'price'=>$this->price,
-            'quantity' =>$this->quantity,
-            ];
-            return $cardItem;
+    public function printcard(){
+        if(ceil($this->vote_average) < 7){
+            try{
+                $this->setDis(10);
+
+            }catch(Exception $e){
+                $error = 'Eccezione'.$e->GetMessage();
+            }
+        }
+        $sconto = $this->GetDis();
+        $image = $this->poster_path;
+        $title = $this->title;
+        $content = $this->overview;
+        $custom = $this->vote_average;
+        $genres = $this->GetGenr();
+        $original_language = $this->original_language;
+        $template = $this->getVote();
+        $price=$this->price;
+        $quantity =$this->quantity;
         
+        include __DIR__.'/../Views/card.php';
     }
     public static function fetchAll(){
     $movieString = file_get_contents(__DIR__.'/movie_db.json');
@@ -95,4 +99,3 @@ class Movie extends product{
 
 
 ?>
-
