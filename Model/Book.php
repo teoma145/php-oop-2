@@ -4,7 +4,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include __DIR__.'/genre.php';
 include __DIR__.'/Product.php';
+include __DIR__.'/../Traits/DrawCard.php';
 class Book extends product{
+    use DrawCard;
     private int $id;
     private string $title;
     private string $isbn;
@@ -25,17 +27,18 @@ class Book extends product{
     }
     
    
-    public function printcardbook(){
-        $sconto = $this->setDis($this->title);
-        $image = $this->thumbnailUrl;
-        $title = $this->title;
-        $content = $this->isbn;
-        $custom = $this->authors;
-        $template = $this->longDescription;
-        $price=$this->price;
-        $quantity =$this->quantity;
-        
-        include __DIR__.'/../Views/card.php';
+    public function formatCard(){
+        $cardItem=[
+        'sconto' => $this->setDis($this->title),
+        'image' => $this->thumbnailUrl,
+        'title' => $this->title,
+        'content' => $this->isbn,
+        'custom' => $this->authors,
+        'template' => $this->longDescription,
+        'price'=> $this->price,
+        'quantity' => $this->quantity,
+        ];
+        return $cardItem;
     }
     public static function fetchAll(){
     $BookString = file_get_contents(__DIR__.'/books_db.json');
