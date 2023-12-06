@@ -4,7 +4,9 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 include __DIR__.'/genre.php';
 include __DIR__.'/product.php';
+include __DIR__.'/../Traits/DrawCard.php';
 class Movie extends product{
+    use DrawCard;
     private int $id;
     private string $title;
     private string $overview;
@@ -47,19 +49,21 @@ class Movie extends product{
         return $templategen;
         
     }
-    public function printcard(){
-        $sconto = $this->setDis($this->title);
-        $image = $this->poster_path;
-        $title = $this->title;
-        $content = $this->overview;
-        $custom = $this->vote_average;
-        $genres = $this->GetGenr();
-        $original_language = $this->original_language;
-        $template = $this->getVote();
-        $price=$this->price;
-        $quantity =$this->quantity;
+    public function formatCard(){
+        $cardItem=[
+            'sconto' => $this->setDis($this->title),
+            'image' => $this->poster_path,
+            'title' => $this->title,
+            'content' => $this->overview,
+            'custom' => $this->vote_average,
+            'genres' => $this->GetGenr(),
+            'original_language' => $this->original_language,
+            'template' => $this->getVote(),
+            'price'=>$this->price,
+            'quantity' =>$this->quantity,
+            ];
+            return $cardItem;
         
-        include __DIR__.'/../Views/card.php';
     }
     public static function fetchAll(){
     $movieString = file_get_contents(__DIR__.'/movie_db.json');

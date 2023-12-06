@@ -10,7 +10,7 @@ $movies = Movie::fetchAll();
     <h2>movies</h2>
     <div class="row">
     <?php foreach($movies as $movie) 
-    $movie->printcard();
+    $movie->printcard($movie->formatCard());
     if($movie->title=='Gunfight at Rio Bravo'){
         $movie-> $sconto= 20;
     }
