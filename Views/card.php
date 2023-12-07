@@ -33,6 +33,12 @@
                 prezzo scontato
             <?php }    ?>    
             </div>
+            <?php 
+            if (isset($error) && $error) {?>
+                    <div class="alert alert-danger ">
+                    <?= $error?>  
+                    </div>
+                    <?php }?>
             <div>
             
             </div>

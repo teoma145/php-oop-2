@@ -35,6 +35,18 @@ class Movie extends product{
         return $template;
         
     }
+    public function setDisc(int $perc){
+        if($perc > 70){
+            throw new exception ('nessuno sconto');
+        }
+            else{
+                $this->sconto=10;
+            };
+        
+        }
+        public function getDisc(){
+            return $this->sconto;
+        }
     public function getGenr(){
         
         $templategen = '<p>';
@@ -50,13 +62,14 @@ class Movie extends product{
     public function printcard(){
         if(ceil($this->vote_average) < 7){
             try{
-                $this->setDis(10);
+                $this->setDisc(60);
 
             }catch(Exception $e){
-                $error = 'Eccezione'.$e->GetMessage();
+                $error = 'Eccezione ' .$e->GetMessage();
             }
         }
-        $sconto = $this->GetDis();
+        $error = $error ?? '';
+        $sconto = $this->GetDisc();
         $image = $this->poster_path;
         $title = $this->title;
         $content = $this->overview;
